@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="p-5">
+    <div class="col-md-3 mx-auto p-5 bg-white border border-dark rounded">
+        <form method="POST">
+            {% csrf_token %}
+
+            <legend class="border-bottom mb-3">Вход</legend>
+
+            {% for field in form %}
+            <div class="form-group mt-3">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+
+<!--            <div class="text-danger">-->
+<!--                {{ field.errors | striptags }}-->
+<!--            </div>-->
+            {% endfor %}
+
+            <div class="col-md-3 mx-auto">
+            <button class="btn btn-outline-success mt-4 mb-2 w-100" type="submit">Sign in</button>
+            </div>
+
+
+        </form>
+        <div class="border-top mt-3 pt-1">
+            <small class="text-muted">
+                Нужен аккаунт? <a class="ml-2" href="{% url 'register' %}">Регистрация</a>
+            </small>
+        </div>
+    </div>
+</div>
+{% endblock content %}

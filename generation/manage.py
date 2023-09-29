@@ -2,7 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from text_gen.lstm_nn.models import TextRNN
 
 
 def main():

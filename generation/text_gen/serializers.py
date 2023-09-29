@@ -1,19 +1,9 @@
 from rest_framework import generics
 from rest_framework import serializers
 
-from .models import TextGen, Translator
 
-class TextGenSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TextGen
-        fields = '__all__'   #['generation_text']
-
-    # def create(self, validated_data):
-
-
-class TranslatorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Translator
-        fields = '__all__'   #['generation_text']
-
-
+class FilesDataSerializer(serializers.Serializer):
+   id = serializers.IntegerField()
+   file_id = serializers.IntegerField()
+   name = serializers.CharField(max_length=200)
+   filename = serializers.CharField(max_length=100)

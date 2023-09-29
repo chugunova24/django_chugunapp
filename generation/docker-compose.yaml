@@ -1,0 +1,61 @@
+# Use postgres/example user/password credentials
+version: '3.8'
+
+services:
+
+  postgres:
+    container_name: postgres_chugunapp
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: test_db
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+    ports:
+      - "5433:5432"
+
+  pgadmin:
+    container_name: pgadmin_chugunapp
+    image: dpage/pgadmin4:5.7
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: t.chugunova24@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:5050"
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis_chugunapp
+    restart: always
+    volumes:
+      - redis_volume_data:/data
+      - redis_conf:/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    env_file:
+      - redis.env
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_DATABASES: ${REDIS_DATABASES}
+
+
+  redis_insight:
+    image: redislabs/redisinsight:latest
+    container_name: redis_insight
+    restart: always
+    ports:
+      - 8001:8001
+    volumes:
+      - redis_insight_volume_data:/db
+volumes:
+  redis_volume_data:
+  redis_insight_volume_data:
+  redis_conf:
+

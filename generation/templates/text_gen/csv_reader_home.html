@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load index %}
+
+
+<!--MODAL WINDOWS-->
+{% block modal_win_content %}
+<!--post form-->
+<div class="modal-header">
+    <h5 class="modal-title" id="ModalLongTitle">Please, download file</h5>
+</div>
+
+<div class="modal-body">
+
+    <form method="POST" id="form_dowload_files" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_download_files.as_div }}
+        <button type="submit" form="form_dowload_files" name="_upload_file"
+                class="save btn btn-success">upload file
+        </button>
+    </form>
+</div>
+
+<div class="modal-footer">
+<!--    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+</div>
+{% endblock %}
+
+
+
+{% block content %}
+
+<!--get form-->
+<div class="modal fade" id="ModalInfoTable" tabindex="-1" role="dialog" aria-labelledby="ModalInfoFiles"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalInfoFilesTitles">Info about selected files</h5>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped table-bordered table-sm">
+                        <caption>by using pandas</caption>
+
+                        <thead>
+                        <tr>
+                            {% for filename in files_info.filenames %}
+                            {% if forloop.counter|divisibleby:"2" %}
+                            <th class="table-primary align-middle" colspan="{{ 2 }}" style="word-break: break-all;">
+                                {{ filename }}
+                            </th>
+                            {% else %}
+                            <th class="table-warning align-middle" colspan="{{ 2 }}" style="word-break: break-all;">
+                                {{ filename }}
+                            </th>
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+
+                        <tr>
+                            {% for filename in files_info.filenames %}
+                            {% if forloop.counter|divisibleby:"2" %}
+                            <th class="table-primary align-middle">Column name</th>
+                            <th class="table-primary align-middle">Type</th>
+                            {% else %}
+                            <th class="table-warning align-middle">Column name</th>
+                            <th class="table-warning align-middle">Type</th>
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+                        </thead>
+
+
+                        {% for data in files_info.data %}
+
+
+                        <tr>
+                            {% for elem in data %}
+                            <td class="align-middle">{{ elem }}</td>
+                            {% endfor %}
+
+                        </tr>
+
+                        {% endfor %}
+
+
+                    </table>
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--FORM SECTION-->
+<section class="bg-light pt-5 text-center">
+    <div class="container pb-5">
+
+        <div class="pt-5 row">
+            <div class="col-lg-8 col-xl-6 mx-auto">
+                <h1 class="display-4 fw-normal mb-3 text-dark">CSV-Reader Home</h1>
+                <p class="fw-light mb-4">Это домашняя страница приложения CSV-Reader</p>
+                <p class="fw-light mb-4"></p>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center mt-5 pb-5" style="height:400px;">
+
+
+            <div id="list-example" class="list-group col-sm-4">
+
+                <div class="btn-group" role="group">
+                    <button id="id-btn-add" form="formSelectFiles" type="button" name="_add" data-bs-toggle="modal"
+                            data-bs-target="#ModalCenter"
+                            class="btn btn-success my-btn">Add
+                    </button>
+                    <button id="id-btn-info" form="formSelectFiles" type="button" name="_info"
+                            class="btn btn-secondary my-btn">Info
+                    </button>
+
+                    <!--                                 */ вызывает пост запрос с перенаправлением/*  УБРАТЬ JS EVENT -->
+<!--                    <button id="id-btn-filter" onclick="document.location='{% url 'csv-reader-filter' %}?select_file=41' " form="formSelectFiles" type="button" name="_filter"-->
+                    <button id="id-btn-filter" form="formSelectFiles" type="button" name="_filter" class="btn btn-primary my-btn">Filter
+                    </button>
+
+                    <button id="id-btn-remove" form="formSelectFiles" type="submit" name="_remove"
+                            class="btn btn-danger my-btn">Remove
+                    </button>
+                </div>
+
+
+
+
+
+
+                <!--FORM LIST FILES-->
+                <div class="form-group h-100">
+                    <form class="h-100" id="formSelectFiles" method="POST">
+                        {% csrf_token %}
+
+                        {% for field in form.visible_fields %}
+                            {{ field }}
+<!--                            <p><strong>{{ field.errors }}</strong></p>-->
+                        {% endfor %}
+
+
+                    </form>
+                </div>
+
+
+                
+                <!--<a class="list-group-item list-group-item-action" data-value="4" href="">file4</a>
+                <a class="list-group-item list-group-item-action" data-value="3" href="">file3</a>
+                <a class="list-group-item list-group-item-action" data-value="2" href="">file2</a>
+                <a class="list-group-item list-group-item-action" data-value="1" href="">file1</a>-->
+
+            </div>
+
+            <div id="div-info" data-bs-spy="scroll" data-bs-offset="0"
+                 class="scrollspy-example col-sm-4" tabindex="0">
+
+                <h4 id="list-item-1">INFO</h4>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+<script language="JavaScript" type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+<script src="{% static 'js/csv_reader_home.js'%}"></script>
+
+{% endblock %}
+
+
+

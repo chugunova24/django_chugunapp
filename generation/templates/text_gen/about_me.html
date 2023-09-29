@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<section class="bg-light pt-5 text-center">
+    <div class="container">
+        <div class="pt-5 row">
+            <div class="col-lg-8 col-xl-6 mx-auto">
+                <h1 class="display-4 fw-normal mb-3 text-dark">About me</h1>
+                <p class="fw-light mb-4">Обо мне</p>
+                <p class="fw-light mb-4"></p>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="p-5">
+                <div class="card w-75 mx-auto pt-5 pb-3 my-cont">
+                    <div class="card-body">
+
+                        <div class="container">
+
+
+                            <div class="row justify-content-md-center">
+
+                                <div class="col-sm-5">
+                                    <div class="w-75 mx-auto"><img src="{% static 'img/chel.jpg'%}"
+                                                                   class="w-100 grounded-radiants" alt="..."></div>
+                                </div>
+
+                                <div class="col-sm-6 row align-items-center">
+                                    <div class=""><p class="my-name">CHUGUN
+                                        <p></div>
+<!--                                    <div class=""><p class="my-name">Tatiana</p>-->
+<!--                                    </div>-->
+
+                                </div>
+                            </div>
+
+
+                            <p class="card-text">GITHAB: <a href="https://github.com/chugunova24" class="card-link text-danger">chugunova24</a></p>
+
+                            <p class="card-text">TELEGRAM: <a class="card-link text-danger">@onefreefly</a></p>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+

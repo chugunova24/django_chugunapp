@@ -1,0 +1,105 @@
+
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+  bottom: .5em;
+}
+
+.table-responsive {
+    max-height: 600px;
+    max-width: 100%;
+    white-space: normal;
+}
+
+.img-max {
+ border: 20px solid #dc3545;
+
+}
+
+/* border: 5px solid #555; */
+
+/*@import url('https://fonts.googleapis.com/css2?family=Nabla&display=swap');*/
+
+body {
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-name: fontfix;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes fontfix {
+    from { opacity: 1; }
+    to   { opacity: 1; }
+}
+
+/*@import url('https://fonts.googleapis.com/css2?family=Nabla&display=swap');
+*/
+
+
+.module {
+  max-width: 250px;
+  padding: 1rem;
+  color: white;
+  border-width: 3px;
+  border-style: solid;
+  border-image:
+    linear-gradient(
+      to bottom,
+      red,
+      rgba(0, 0, 0, 0)
+    ) 1 100%;
+}
+
+
+.grounded-radiants {
+    position: relative;
+    border: 20px solid transparent;
+    border-radius: 50%;
+    background: linear-gradient(315deg, rgb(255, 7, 149) 12%, rgb(251, 159, 0) 85%);
+    background-clip: padding-box;
+    padding: 10px;
+    /* just to show box-shadow still works fine */
+/*     box-shadow: 0 3px 9px black, inset 0 0 20px white; */
+}
+
+.grounded-radiants::after {
+    position: absolute;
+    top: -4px; bottom: -4px;
+    left: -4px; right: -4px;
+    background: linear-gradient(red, blue);
+    content: '';
+    z-index: -1;
+    border-radius: 50%;
+}
+
+
+.my-name {
+  font-family: 'Nabla', cursive;
+  font-size: 100px;
+
+}
+
+/* class="my-name justify-content-center d-flex align-items-center" */
+
+.my-cont {
+  background: url('draw-fire.svg') no-repeat #fff;
+
+}
+
+.my-btn {
+  width: 70px;
+}
+
+
+
+
+

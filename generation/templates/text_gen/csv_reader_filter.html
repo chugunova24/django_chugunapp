@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+<section class="bg-light pt-5 text-center">
+    <div class="container">
+        <div class="pt-5 row">
+            <div class="col-lg-8 col-xl-6 mx-auto mb-5">
+                <h1 class="display-4 fw-normal mb-3 text-dark">How to use CSV-Filter?</h1>
+                <!--<p class="fw-light mb-4">1. Ведро воды</p>
+                <p class="fw-light mb-4">2. И все туды</p>
+                <p class="fw-light mb-4"></p>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mb-n5 ms-auto me-auto">
+                <h3>1. Select options</h3>
+                <div id="idDivFilterOptions" class="bg-white mb-5 mt-3 p-5" style="border-radius: 0.5rem;">
+
+                    <table class="table table-bordered align-middle">
+                        <!--                             <thead class="thead-dark"> -->
+                        <!--                             </thead> -->
+                        <tbody id="idTBodyOptions">
+
+                        {% for field in form.visible_fields %}
+                        <tr>
+                            <th scope="col">{{ forloop.counter0 }}</th>
+                            <th scope="col">{{  field.label_tag  }}</th>
+                            <th scope="col" class="row justify-content-center">
+                                {{ field }}
+                            </th>
+
+
+                        </tr>
+
+                        <tr id="idError{{ forloop.counter0 }}"><th colspan="3" class="text-danger">{{ field.errors | striptags }}</th></tr>
+
+                        {% endfor %}
+
+
+
+
+
+
+
+
+
+                        </tbody>
+                    </table>
+
+                    <div id="idDivError" class="text-danger"><p></p></div>
+
+                </div>
+
+
+
+                <h3>2. Then click the "Generate File" button. After clicking button....</h3>
+
+                <div class="bg-light d-flex justify-content-center p-3" style="border-radius: 0.5rem;">
+                    <button type="button" id="idBtnGenerateFile" name="_generate" class="btn btn-outline-info">Generate File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="bg-light">
+
+
+    <section class="bg-light pt-3 text-center">
+        <div class="col-md-8 mb-n5 mx-auto">
+
+            <h3>3. Then click the "Download file" button. After clicking the Preview button, the table will appear
+                below.</h3>
+
+        </div>
+    </section>
+
+    <section class="bg-light pb-5 pt-3 text-center">
+        <button id="idBtnDownload" class="btn btn-outline-success" style="display:none;">Download file</button>
+        <div class="container pb-3 position-relative pt-5">
+            <p class="mb-3">Preview table (limit 500r x 100c)</p>
+            <div id="divRenderTable" class="table-responsive">
+                {{ table_html|safe }}
+
+            </div>
+        </div>
+        <div class="container pb-3 position-relative pt-3">
+            <div class="row">
+
+
+            </div>
+            <br>
+            <table class="pg-empty-placeholder"></table>
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+{{ data_of_file | json_script:"jsonFilesData" }}
+
+
+<!--ЕСЛИ NONE ИЛИ СТРОКА ПУСТАЯ-->
+{% if table_csv == "None" %}
+    <script id="idTableCsv" type="text/csv"></script>
+{% else %}
+    <script id="idTableCsv" type="text/csv">{{ table_csv | safe }}</script>
+{% endif %}
+
+<script id="idErrorsFields" type="application/json">{{ form.errors.as_json | safe }}</script>
+
+
+
+<script language="JavaScript" type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+<script src="{% static 'js/csv_reader_filter.js'%}"></script>
+{% endblock %}
+
