@@ -7,9 +7,12 @@ function loadCsv(id) {
 };
 
 
+function isEmpty(str) {
+    if (str.trim() == '')
+        return true;
 
-
-
+    return false;
+};
 
 
 function filterSelectFile(jsonData) {
@@ -42,36 +45,40 @@ function filterColumnsFile() {
 }
 
 
-function filterSelectedItems(jsonData) {
-    // let jsonData = loadJson('jsonFilesData');
-    // let jsonData = jsonData;
+function filterSelectedItems() {
+    let jsonData = loadJson('jsonFilesData');
 
     idSelectFile.onchange = function () {
-        idSelectColumnsOfFile.innerHTML = "<option value='0' disabled>Select column list</option>";
-        idSelectSortBy.innerHTML = "<option value='0' disabled></option>";
-        mychange = idSelectFile.value;
 
-        if (idSelectColumnsOfFile.length != 0) {
-            for (var i = 0; i < jsonData.length; i++) {
-                if (jsonData[i].file_id == mychange) {
-                    idSelectColumnsOfFile.innerHTML += `<option value="${jsonData[i].id}">${jsonData[i].name}</option>`;
-                }
-            }
+        filterSelectFile(jsonData);
 
-        } else {
-            idSelectColumnsOfFile.disabled = true;
-            idSelectSortBy.disabled = true;
-        }
+        // idSelectColumnsOfFile.innerHTML = "<option value='0' disabled>Select column list</option>";
+        // mychange = idSelectFile.value;
+        //
+        // if (idSelectColumnsOfFile.length != 0) {
+        //     for (var i = 0; i < jsonData.length; i++) {
+        //         if (jsonData[i].file_id == mychange) {
+        //
+        //             idSelectColumnsOfFile.innerHTML += `<option value="${jsonData[i].id}">${jsonData[i].name}</option>`;
+        //
+        //         }
+        //     }
+        //
+        // } else {
+        //     idSelectColumnsOfFile.disabled = true;
+        // }
+
     };
 
     idSelectColumnsOfFile.onchange = function () {
-        let selectedOptions = idSelectColumnsOfFile.selectedOptions;
-        idSelectSortBy.innerHTML = "<option value='0' disabled>Select column</option>";
+        filterColumnsFile(jsonData);
 
-        for (var i = 0; i < selectedOptions.length; i++) {
-            idSelectSortBy.innerHTML += `<option value="${selectedOptions[i].value}">${selectedOptions[i].text}</option>`;
-        }
-        idSelectSortBy.disabled = false;
+        // let selectedOptions = idSelectColumnsOfFile.selectedOptions;
+        // idSelectSortBy.innerHTML = "<option value='0' disabled>Select column</option>";
+        //
+        // for (var i = 0; i < selectedOptions.length; i++) {
+        //     idSelectSortBy.innerHTML += `<option value="${selectedOptions[i].value}">${selectedOptions[i].text}</option>`;
+        // }
 
     };
 }
@@ -81,6 +88,9 @@ function filterSelectedItems(jsonData) {
 function generateFile() {
 
     idBtnGenerateFile.addEventListener("click", (event) => {
+
+        // let arr = [idSelectFile, idSelectColumnsOfFile, idSelectSortBy,
+        //                 id_separator, id_encoding, id_decimal, id_doublequote];
         let arr = [idSelectFile, idSelectColumnsOfFile, idSelectSortBy];
 
         let data = "";
@@ -90,6 +100,15 @@ function generateFile() {
             piece = `&${$(arr[i]).serialize()}`;
 
             if (piece.length === 1 || piece.length === 0) {
+                // поле id_doublequote имеет право быть незаполненным, поэтому игнорируем его
+                // if ( Object.is(arr[i], id_doublequote) ) {
+                //
+                // } else {
+                //     haveEmptyField = true;
+                //     break;
+                // };
+
+
                 haveEmptyField = true;
                 break;
             };
@@ -175,61 +194,25 @@ function downloadFile(data, name = "filtered_table.csv") {
 }
 
 
-
 window.onload = function () {
     let jsonData = loadJson('jsonFilesData');
 
-    idSelectColumnsOfFile.innerHTML = "<option value='0' disabled>Select column list</option>";
-    selectValue = idSelectFile.value;
-    idSelectSortBy.innerHTML = "<option value='0' disabled></option>";
-    // idSelectColumnsOfFile.disabled = true;
-    idSelectSortBy.disabled = true;
-    console.log(`idSelectSortBy.disabled: ${idSelectSortBy.disabled}`)
-
-    if (idSelectColumnsOfFile.length != 0) {
-        for (var i = 0; i < jsonData.length; i++) {
-            if (jsonData[i].file_id == selectValue) {
-
-                idSelectColumnsOfFile.innerHTML += `<option value="${jsonData[i].id}">${jsonData[i].name}</option>`;
-            }
-        }
-    } else {
-        idSelectColumnsOfFile.disabled = true;
-    };
+    function filterItemsInit() {
+        filterSelectFile(jsonData);
+        filterColumnsFile();
 
 
-    filterSelectedItems(jsonData);
+    }
+
+    filterSelectedItems();
     generateFile();
 
     idBtnDownload.addEventListener("click", (event) => {
         let csvText = loadCsv('idTableCsv');
+
+//        if () ПРОВЕРКА НА ПУСТОТУ И NONE
+
         downloadFile(data = csvText, name = "filtered_table.csv");
     });
 
-
-
 }
-
-
-// window.onload = function () {
-//     let jsonData = loadJson('jsonFilesData');
-//
-//     function filterItemsInit() {
-//         filterSelectFile(jsonData);
-//         filterColumnsFile();
-//
-//
-//     }
-//
-//     filterSelectedItems();
-//     generateFile();
-//
-//     idBtnDownload.addEventListener("click", (event) => {
-//         let csvText = loadCsv('idTableCsv');
-//
-// //        if () ПРОВЕРКА НА ПУСТОТУ И NONE
-//
-//         downloadFile(data = csvText, name = "filtered_table.csv");
-//     });
-//
-// }

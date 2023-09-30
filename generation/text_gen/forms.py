@@ -103,7 +103,6 @@ class FileFilterForm(forms.Form):
 
         self.fields['select_file'] = forms.ChoiceField(choices=self.queryset["files"])
         self.fields['select_columns_of_file'] = MyModelMultipleChoiceField(queryset=self.queryset["columns"])
-        # self.fields['select_columns_of_file'] = forms.MultipleChoiceField(choices=self.queryset["columns"])
 
         self.fields["select_file"].widget.attrs.update({"id": "idSelectFile",
                                                         "class": "form-control",
@@ -175,25 +174,7 @@ class FilePropertiesFilterForm(FileFilterForm):
 # class FilePropertiesFilterForm(FileFilterForm, UploadFileForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # print("files:: ", self.queryset["files"])
-        # print("columns:: ", self.queryset["columns"])
-
-        # self.fields['select_file'] = forms.ChoiceField(choices=self.queryset["files"])
-        # self.fields['select_columns_of_file'] = MyModelMultipleChoiceField(queryset=self.queryset["columns"])
-
-        # self.fields['select_columns_of_file'] = forms.MultipleChoiceField(choices=self.queryset["columns"])
-        # self.fields['select_columns_of_file'] = forms.ModelMultipleChoiceField(queryset=self.queryset["columns"])
-        # self.fields['sort_by'] = forms.ChoiceField(choices=self.queryset["columns"])
-        # self.fields['sort_by'] = forms.ChoiceField(choices=self.queryset["columns"])
-        # self.fields['sort_by'] = forms.ModelChoiceField(queryset=self.queryset["columns"])
         self.fields['sort_by'] = MyModelChoiceField(queryset=self.queryset["columns"])
-
-        # self.fields["select_file"].widget.attrs.update({"id": "idSelectFile",
-        #                                                 "class": "form-control",
-        #                                                 })
-        # self.fields["select_columns_of_file"].widget.attrs.update({"id": "idSelectColumnsOfFile",
-        #                                                            "class": "form-control",
-        #                                                            })
         self.fields['sort_by'].widget.attrs.update({"id": "idSelectSortBy",
                                                     "class": "form-control",
         })

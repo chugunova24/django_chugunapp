@@ -55,20 +55,11 @@ $(document).ready(function() {
 
 
    btnFilter.click(function(e) {
-       let btnFilter = "_filter";
-       let data = $(form).serialize() + `&${btnFilter}`; // Данные формы
+       let idSelectFiles = $('#id_select_file');
+       let url = "/file-reader/csv-reader-filter";
+       let data = `?${idSelectFiles.serialize()}`;
 
-       $.ajax({
-           method: 'get',
-           data: data,
-           async: true,
-           timeout: 10000, // 10 sec
-           // success: function(result){
-           //
-           // }
-        });
-
-
+       window.location.href = `${url}${data}`;
     });
 
 

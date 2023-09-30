@@ -82,16 +82,6 @@ class CsvReaderHome(View):
                         self.files_info = {'filenames': filenames,
                                            'data': list(zip_longest(*prepared_list, fillvalue=" "))}
 
-        if  "_filter" in request.GET:
-            if form.is_valid():
-                id_select_files = form.cleaned_data.get('select_file')[0]
-                print(f"_filter/id_select_files: {id_select_files}")
-                from django.http import HttpResponseRedirect
-                from django.urls import reverse
-
-                return HttpResponseRedirect('%s?select_file=%s' % (reverse('csv-reader-filter'), reverse(id_select_files)))
-                # return HttpResponseRedirect('%s?next=%s' % (reverse('csv-reader-filter'), reverse(f'&select_file={id_select_files}')))
-
         context = {
             'form': form,
             'files_set': self.files_set,
@@ -218,9 +208,18 @@ class CsvReaderFilter(View):
     def get(self, request, *args, **kwargs):
         print(f'request.GET ::: {request.GET}\n')
 
+        init_id_file = request.GET.get('select_file')
+        print(f"init_id_file:: {init_id_file}")
+
+
         user = request.user
         print(f"user: {user}")
-        form = self.form_class(request.GET, user=user)
+
+        if init_id_file:
+            initial = {"select_file": str(init_id_file)}
+            form = self.form_class(request.GET, user=user, initial=initial)
+        else:
+            form = self.form_class(request.GET, user=user)
 
         files_set = form.queryset["files"]
         data_of_file = [ColumnsOfCsvFiles.to_dict(obj)  for obj in form.queryset["columns"]]
