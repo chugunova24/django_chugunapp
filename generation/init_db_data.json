@@ -1,0 +1,76 @@
+[
+{
+  "model": "users.country",
+  "pk": 1,
+  "fields": {
+    "name": "Afghanistan"
+  }
+},
+{
+  "model": "users.country",
+  "pk": 2,
+  "fields": {
+    "name": "Russia"
+  }
+},
+{
+  "model": "users.citiesofcountry",
+  "pk": 1,
+  "fields": {
+    "country": 1,
+    "name": "Kabul"
+  }
+},
+{
+  "model": "users.citiesofcountry",
+  "pk": 2,
+  "fields": {
+    "country": 1,
+    "name": "Herat"
+  }
+},
+{
+  "model": "users.citiesofcountry",
+  "pk": 3,
+  "fields": {
+    "country": 2,
+    "name": "Москва"
+  }
+},
+{
+  "model": "users.citiesofcountry",
+  "pk": 4,
+  "fields": {
+    "country": 2,
+    "name": "Пермь"
+  }
+},
+{
+  "model": "text_gen.encodings",
+  "pk": 1,
+  "fields": {
+    "name": "utf-8"
+  }
+},
+{
+  "model": "text_gen.encodings",
+  "pk": 2,
+  "fields": {
+    "name": "ascii"
+  }
+},
+{
+  "model": "text_gen.encodings",
+  "pk": 3,
+  "fields": {
+    "name": "cp1251"
+  }
+},
+{
+  "model": "text_gen.encodings",
+  "pk": 4,
+  "fields": {
+    "name": "koi8-r"
+  }
+}
+]

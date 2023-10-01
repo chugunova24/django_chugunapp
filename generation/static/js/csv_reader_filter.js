@@ -182,7 +182,6 @@ window.onload = function () {
     idSelectColumnsOfFile.innerHTML = "<option value='0' disabled>Select column list</option>";
     selectValue = idSelectFile.value;
     idSelectSortBy.innerHTML = "<option value='0' disabled></option>";
-    // idSelectColumnsOfFile.disabled = true;
     idSelectSortBy.disabled = true;
     console.log(`idSelectSortBy.disabled: ${idSelectSortBy.disabled}`)
 

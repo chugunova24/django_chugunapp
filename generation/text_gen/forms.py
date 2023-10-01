@@ -55,29 +55,33 @@ class MyModelChoiceField(forms.ModelChoiceField):
 # Forms
 
 class UploadFileForm(forms.Form):
-    ENCODING_CHOICES = Encodings.objects.all().values_list() #queryset
-
-    SEPARATOR_CHOICES = (
-        (",", ","),
-        (";",  ";"),
-    )
-
-    DECIMAL_CHOICES = (
-        (".", "."),
-        (",", ","),
-    )
-
-    file = forms.FileField()  # посмотри FILE_UPLOAD_PERMISSIONS
-    separator = forms.ChoiceField(choices=SEPARATOR_CHOICES, initial=1)
-    encoding = forms.ChoiceField(choices=ENCODING_CHOICES, initial=1)
-    decimal = forms.ChoiceField(choices=DECIMAL_CHOICES, initial=1)
-    doublequote = forms.BooleanField(initial=True, required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        ENCODING_CHOICES = Encodings.objects.all().values_list()  # queryset
+
+        SEPARATOR_CHOICES = (
+            (",", ","),
+            (";", ";"),
+        )
+
+        DECIMAL_CHOICES = (
+            (".", "."),
+            (",", ","),
+        )
+
+        self.fields['file'] = forms.FileField()
+        self.fields['separator'] = forms.ChoiceField(choices=SEPARATOR_CHOICES, initial=1)
+        self.fields['encoding'] = forms.ChoiceField(choices=ENCODING_CHOICES, initial=1)
+        self.fields['decimal'] = forms.ChoiceField(choices=DECIMAL_CHOICES, initial=2)
+        self.fields['doublequote'] = forms.BooleanField(initial=True, required=False)
+
+
+
+
         self.fields['file'].widget.attrs.update({
-            "class": "form-control-file",
+            "class": "form-control",
         })
         self.fields['separator'].widget.attrs.update({
             "class": "form-control",
